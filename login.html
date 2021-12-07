@@ -1,0 +1,57 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: heting
+ * @Date: 2021-12-07 15:23:01
+ * @LastEditors: heting
+ * @LastEditTime: 2021-12-07 16:46:50
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<body>
+  <form method="post" action="http://localhost:8888/api/isExistUser" target="stop" onsubmit="return submit_form();">
+    <label for="username">用户名：</label>
+    <input type="text" name="username" />
+    <label for="password">密码：</label>
+    <input type="password" name="password"/>
+    <!-- <button type="submit" onclick="func(event)">登录</button> -->
+    <!-- 方法2 onsubmit方法中return false 可禁止跳转 -->
+    <input type="submit" value="提交" />
+  </form>
+  <!-- 方法1 form 添加target属性 跳转目标改为当页隐藏的iframe -->
+  <!-- <iframe name="stop" style="display: none;"></iframe> -->
+</body>
+
+<script>
+  function func(event) {
+    // event.preventDefault();
+  }
+  function submit_form() {
+    const username = $('input[name="username"]').val()
+    const password = $('input[name="password"]').val()
+    let form = new FormData()
+    form.append('username', username)
+    form.append('password', password)
+    $.ajax({
+        url: 'http://localhost:8888/api/isExistUser',
+        type: 'POST',
+        data: form,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: (result) => {
+          console.log(result)
+        },
+        fail: () => {}
+      })
+    return false
+  }
+</script>
+</html>

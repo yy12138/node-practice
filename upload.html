@@ -1,0 +1,44 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: heting
+ * @Date: 2021-12-06 11:11:15
+ * @LastEditors: heting
+ * @LastEditTime: 2021-12-06 11:33:51
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文件上传</title>
+</head>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<body>
+  <input type="file" id="file" name="myfile" />
+  <button>点击上传</button>
+
+  <script>
+    $('button').click(() => {
+      const file = document.getElementById('file').files[0]
+      const form = new FormData()
+      form.append("file", file)
+      form.append('username', 'username')
+      form.append('password', 'password')
+      $.ajax({
+        url: 'http://localhost:9999/upload',
+        type: 'POST',
+        data: form,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: (result) => {
+          console.log(result)
+        },
+        fail: () => {}
+      })
+    })
+  </script>
+</body>
+</html>
