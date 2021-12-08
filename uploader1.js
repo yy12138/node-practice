@@ -4,7 +4,7 @@
  * @Author: heting
  * @Date: 2021-12-06 16:55:01
  * @LastEditors: heting
- * @LastEditTime: 2021-12-06 17:14:17
+ * @LastEditTime: 2021-12-08 10:08:13
  */
 const express = require('express')
 const fs = require('fs')
@@ -13,6 +13,7 @@ const app = express()
 const multer = require('multer')
 const upload = multer({dest: './static/images'})
 app.use(express.static('./static'))
+app.use(express.static('./dist')) // http://localhost:9999/index.html
 
 app.post('/upload', upload.single('file'), (req, res) => {
   console.log(req.body)
@@ -35,4 +36,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
   res.send('./images/' + req.file.filename)
 })
 
-app.listen(9999)
+app.listen(9999, () => {
+  console.log('server listen in localhost:9999')
+})
